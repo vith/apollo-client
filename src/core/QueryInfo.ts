@@ -346,6 +346,16 @@ export class QueryInfo {
     this.reset();
 
     if (options.fetchPolicy === 'no-cache') {
+      if (result.path) {
+        const diff = this.lastDiff;
+        if (!diff) {
+          throw new Error('SOMETHING PATH PASSED WITHOUT A THINGY TODO TKTKTK');
+        }
+
+        result.data = diff.diff.result;
+        //TODO: THIS IS PROBABLY WHERE WE MERGE STUFF TOGETHER
+      }
+
       this.updateLastDiff(
         { result: result.data, complete: true },
         this.getDiffOptions(options.variables),
